@@ -7,7 +7,7 @@ public class PlayerStats : Stats
 {
     float exp = 0;
     public float expRequired { get; private set; }
-    float level = 1;
+    public int level { get; private set; } = 1;
 
     private void Start()
     {

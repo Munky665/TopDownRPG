@@ -11,6 +11,8 @@ public class PlayerController : IController
     private Vector3 distance;
     public Interactable focus;
     MovementController movement;
+    public Skill[] skills;
+
 
     // Start is called before the first frame update
     void Start()
@@ -150,5 +152,10 @@ public class PlayerController : IController
         {
             anim.SetBool("IsAttacking", isAttacking = false);
         }
+    }
+    public void ActivateSkill(int skillToActivate)
+    {
+        var level = GetComponent<PlayerStats>().level;
+        skills[skillToActivate].ActivateSkill(anim, level);
     }
 }

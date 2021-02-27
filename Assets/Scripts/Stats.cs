@@ -54,6 +54,8 @@ public class Stats : MonoBehaviour
         {
             health = maxHealth;
         }
+        var ratio = health / maxHealth;
+        healthBar.fillAmount = ratio;
     }
 
     internal void RegenMana(float n)
@@ -63,5 +65,8 @@ public class Stats : MonoBehaviour
         {
             mana = maxMana;
         }
+        //for filling the mana bar later
+            //var ratio = mana / maxMana;
+            //manahBar.fillAmount = ratio;
     }
 }

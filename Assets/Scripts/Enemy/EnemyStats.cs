@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyStats : Stats
 {
     float expWorth = 3;
+    int oddsOfDroppingPotion = 5;
+    int numberInOddsOfDroppingPotion = 3;
 
     private void Start()
     {
@@ -15,6 +17,7 @@ public class EnemyStats : Stats
     {
         base.Death();
         GetComponent<IController>().agent.isStopped = true;
+        GetComponent<SphereCollider>().enabled = false;
         StartCoroutine(DestroyGameObject());
     }
 
@@ -23,6 +26,7 @@ public class EnemyStats : Stats
         yield return new WaitForSeconds(5);
         GameManager.instance.RemoveDeadEnemy(this.gameObject);
         GameManager.instance.AddExp(expWorth);
+        ItemManager.instance.SpawnPotion(oddsOfDroppingPotion, numberInOddsOfDroppingPotion, this.gameObject.transform);
         Destroy(gameObject);
     }
 
