@@ -18,6 +18,7 @@ public class EnemyStats : Stats
         base.Death();
         GetComponent<IController>().agent.isStopped = true;
         GetComponent<SphereCollider>().enabled = false;
+        GetComponent<CapsuleCollider>().enabled = false;
         StartCoroutine(DestroyGameObject());
     }
 

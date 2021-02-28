@@ -10,9 +10,10 @@ public class Stats : MonoBehaviour
     public float maxHealth;
     public float mana { get; protected set; }
     public float maxMana;
-
+    public float manaRecoveryRate = 0.2f;
     public float damageTimer;
     public Image healthBar;
+    public Image manaBar;
     protected Animator anim;
     protected IController controller;
 
@@ -20,10 +21,23 @@ public class Stats : MonoBehaviour
     void Awake()
     {
         health = maxHealth;
+        mana = maxMana;
         controller = GetComponent<IController>();
         anim = GetComponent<Animator>();
     }
 
+    private void Update()
+    {
+        if(mana < maxMana)
+        {
+            RegenMana(manaRecoveryRate * Time.deltaTime);
+        }
+    }
+
+    internal void UseMana(int manaCost)
+    {
+        mana -= manaCost;
+    }
 
     public virtual void Damage(float d)
     {
@@ -65,8 +79,8 @@ public class Stats : MonoBehaviour
         {
             mana = maxMana;
         }
-        //for filling the mana bar later
-            //var ratio = mana / maxMana;
-            //manahBar.fillAmount = ratio;
+        
+        var ratio = mana / maxMana;
+        manaBar.fillAmount = ratio;
     }
 }

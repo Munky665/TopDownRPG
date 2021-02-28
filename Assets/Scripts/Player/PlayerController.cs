@@ -1,24 +1,23 @@
-﻿using UnityEngine.EventSystems;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using UnityEngine;
-using UnityEngine.AI;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(MovementController))]
 public class PlayerController : IController
 {
     public LayerMask clickable;
-    private float tempCount;
-    private float comboCount;
-    private Vector3 distance;
     public Interactable focus;
     MovementController movement;
     public Skill[] skills;
-
+    public List<GameObject> closeEnemies;
+    private PlayerStats pStats;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
-        tempCount = timer;
 
         movement = GetComponent<MovementController>();
 
@@ -26,6 +25,7 @@ public class PlayerController : IController
         {
             GameManager.instance.player = this.gameObject;
         }
+        pStats = GetComponent<PlayerStats>();
     }
 
     // Update is called once per frame
@@ -62,8 +62,39 @@ public class PlayerController : IController
             agent.isStopped = true;
             
         }
+
+        CooldownSkills();
+        CheckForDeadEnemies();
     }
 
+    void CheckForDeadEnemies()
+    {
+        foreach(GameObject e in closeEnemies)
+        {
+            if(e.GetComponent<IController>().isDead)
+            {
+                closeEnemies.Remove(e);
+                break;
+            }
+        }
+    }
+
+    private void CooldownSkills()
+    {
+       foreach (Skill s in skills)
+        {
+            if (s.coolingDown)
+            {
+                StartCoroutine(SkillCoolDown(s));
+            }
+        }
+    }
+    IEnumerator SkillCoolDown(Skill s)
+    {
+        s.coolingDown = false;
+        yield return new WaitForSeconds(s.timer);
+        print(s.skillObject.name + " Ready to use");
+    }
     private void Move()
     {
         Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -71,8 +102,11 @@ public class PlayerController : IController
 
         if (Physics.Raycast(myRay, out hit, 100, clickable))
         {
-            movement.MoveToPoint(hit.point);
-            RemoveFocus();
+            if (!anim.GetBool("IsUsingSkill"))
+            {
+                movement.MoveToPoint(hit.point);
+                RemoveFocus();
+            }
         }
     }
 
@@ -155,7 +189,26 @@ public class PlayerController : IController
     }
     public void ActivateSkill(int skillToActivate)
     {
-        var level = GetComponent<PlayerStats>().level;
-        skills[skillToActivate].ActivateSkill(anim, level);
+
+        isAttacking = true;
+        skills[skillToActivate].ActivateSkill(this, skillToActivate, pStats);
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.tag == "Enemy" && !closeEnemies.Contains(other.gameObject))
+        {
+            closeEnemies.Add(other.gameObject);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy" && closeEnemies.Contains(other.gameObject))
+        {
+            closeEnemies.Remove(other.gameObject);
+        }
+    }
+
+
 }
