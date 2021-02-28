@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     bool canSpawn = true;
     bool waveStarted = false;
     public List<GameObject> enemies;
+    int timesRun = 0;
+    int maxEnemies;
     
     // Start is called before the first frame update
     void Start()
@@ -64,6 +66,8 @@ public class GameManager : MonoBehaviour
     {
         wave++;
         enemiesToSpawn = wave * modifier;
+        maxEnemies = enemiesToSpawn;
+        timesRun = 0;
     }
 
     void SpawnEnemy(GameObject e)
@@ -95,10 +99,11 @@ public class GameManager : MonoBehaviour
 
     IEnumerator EnemySpawner()
     {
-        if (enemiesToSpawn > 0)
+        if (timesRun < maxEnemies)
         {
-            enemiesToSpawn--;
+            timesRun++;
             yield return new WaitForSeconds(1);
+            enemiesToSpawn--;
             SpawnEnemy(EnemyObject);
         }
     }

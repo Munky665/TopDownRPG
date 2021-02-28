@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour
         if(playerPosition.x > transform.position.x + offset || playerPosition.z > transform.position.z + offset
             || playerPosition.x < transform.position.x + offset || playerPosition.z < transform.position.z + offset)
         {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(playerPosition.x + offset, transform.position.y, playerPosition.z), 1 * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(playerPosition.x + offset, transform.position.y, playerPosition.z), 2 * Time.deltaTime);
         }
     }
 }

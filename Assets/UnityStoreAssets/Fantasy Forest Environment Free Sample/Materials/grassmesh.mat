@@ -5,7 +5,8 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: grassmesh
   m_Shader: {fileID: 4800000, guid: 717bc8f73d5aea64caef02a0c07b1e3a, type: 3}
   m_ShaderKeywords: 
@@ -66,11 +67,16 @@ Material:
     - _AO: 0
     - _BaseLight: 0
     - _Cutoff: 0.69642854
+    - _Glossiness: 0.5
+    - _Metallic: 0
     - _Occlusion: 3.2142856
     - _ShadowStrength: 0.78571427
     - _Shininess: 0.078125
     - _SquashAmount: 1
     - _TranslucencyViewDependency: 0.575
+    - _WindFrecuency: 51.5
+    - _WindGustDistance: 5
+    - _WindStrength: 0.818
     - __dirty: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -78,3 +84,5 @@ Material:
     - _TranslucencyColor: {r: 0.73, g: 0.85, b: 0.41, a: 1}
     - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
+    - _WindDirection: {r: 1, g: 0, b: 1, a: 0}
+  m_BuildTextureStacks: []

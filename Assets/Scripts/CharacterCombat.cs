@@ -30,6 +30,9 @@ public class CharacterCombat : MonoBehaviour
     IEnumerator DoDamage(Stats stats, float delay)
     {
         yield return new WaitForSeconds(delay);
-        stats.Damage(myStats.damage.GetValue());
+        if (!stats.GetComponent<IController>().isDead)
+        {
+            stats.Damage(myStats.damage.GetValue());
+        }
     }
 }
