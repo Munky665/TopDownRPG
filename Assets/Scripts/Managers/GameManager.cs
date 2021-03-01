@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject totum;
     public GameObject inventory;
     public GameObject EnemyObject;
+    public Text waveCountText;
     public int wave = 0;
     public int enemiesToSpawn;
     public int modifier = 3;
@@ -65,6 +67,7 @@ public class GameManager : MonoBehaviour
     void StartWave()
     {
         wave++;
+        waveCountText.text = ": " + wave.ToString();
         enemiesToSpawn = wave * modifier;
         maxEnemies = enemiesToSpawn;
         timesRun = 0;

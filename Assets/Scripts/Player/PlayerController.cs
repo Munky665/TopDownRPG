@@ -31,6 +31,7 @@ public class PlayerController : IController
     // Update is called once per frame
     void Update()
     {
+        //stop player moving when interacting with UI
         if(EventSystem.current.IsPointerOverGameObject())
         {
             return;
@@ -39,16 +40,17 @@ public class PlayerController : IController
         if (!isDead)
         {
             RemoveFocus();
-            //anim.SetBool("IsAttacking", false);
-
+            //move player to clicked position
             if (Input.GetMouseButton(0))
             {
                 Move();
             }
+            //move player to interactable or attack/pickup interactable
             if (Input.GetMouseButton(1))
             {
                 Interact();
             }
+            //stop attacking
             if(Input.GetMouseButtonUp(1))
             {
                 anim.SetBool("IsAttacking", isAttacking = false);
