@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TotumController : MonoBehaviour
+public class TotumController : IController
 {
     List<Vector3> positions = new List<Vector3>();
     float moveTime = 30;

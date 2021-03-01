@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class PlayerStats : Stats
 {
-    float exp = 0;
-    public float expRequired { get; private set; }
-    public int level { get; private set; } = 1;
-
+    public float exp = 0;
+    public float expRequired = 9;
+    public int level = 1;
+    public GameObject levelUpParticles;
     private void Start()
     {
         EquipmentManager.instance.onEquipmentChanged += OnEquipmentChanged;
@@ -43,6 +43,7 @@ public class PlayerStats : Stats
         {
             LevelUp();
         }
+        PlayerStatManager.instance.UpdateUI();
     }
 
     private void LevelUp()
@@ -56,8 +57,14 @@ public class PlayerStats : Stats
 
         level++;
         expRequired = level * 10;
-        health += 10;
+        maxHealth += 10;
+        health = maxHealth;
+        maxMana += 5;
+        mana = maxMana;
         damage.AddModifier(1);
         exp = temp;
+        var particles = Instantiate(levelUpParticles, this.transform);
+        particles.transform.position += new Vector3(0, 1, 0);
+        PlayerStatManager.instance.UpdateUI();
     }
 }

@@ -4,7 +4,7 @@
 public class Skill
 {
     [SerializeField]
-    private int levelRequired;
+    public int levelRequired;
 
     public SkillObject skillObject;
     public float timer = 0;

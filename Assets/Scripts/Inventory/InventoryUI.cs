@@ -24,6 +24,7 @@ public class InventoryUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             inventoryUI.SetActive(!inventoryUI.activeSelf);
+            PlayerStatManager.instance.UpdateUI();
         }
     }
 

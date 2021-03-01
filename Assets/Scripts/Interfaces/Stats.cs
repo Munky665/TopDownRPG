@@ -53,6 +53,7 @@ public class Stats : MonoBehaviour
         {
             Death();
         }
+        PlayerStatManager.instance.UpdateUI();
     }
 
     public virtual void Death()
@@ -70,6 +71,7 @@ public class Stats : MonoBehaviour
         }
         var ratio = health / maxHealth;
         healthBar.fillAmount = ratio;
+        PlayerStatManager.instance.UpdateUI();
     }
 
     internal void RegenMana(float n)
@@ -82,5 +84,6 @@ public class Stats : MonoBehaviour
         
         var ratio = mana / maxMana;
         manaBar.fillAmount = ratio;
+        PlayerStatManager.instance.UpdateUI();
     }
 }

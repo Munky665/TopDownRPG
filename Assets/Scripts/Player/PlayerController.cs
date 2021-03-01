@@ -85,7 +85,7 @@ public class PlayerController : IController
     {
        foreach (Skill s in skills)
         {
-            if (s.coolingDown)
+            if (s.coolingDown && s.levelRequired >= pStats.level)
             {
                 StartCoroutine(SkillCoolDown(s));
             }
