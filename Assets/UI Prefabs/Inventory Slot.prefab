@@ -185,6 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 3873241422796764675}
   removeButton: {fileID: 8075569868698819441}
+  audio: {fileID: 0}
 --- !u!222 &4509148383542891452
 CanvasRenderer:
   m_ObjectHideFlags: 0

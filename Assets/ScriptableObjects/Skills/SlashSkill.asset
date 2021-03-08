@@ -17,5 +17,5 @@ MonoBehaviour:
   particleEffect: {fileID: 100010, guid: 4d0391f078db24fac9f5cba3075f9f5d, type: 3}
   damage: 25
   manaCost: 10
-  cooldown: 5
+  cooldown: 10
   animationLength: 3.3

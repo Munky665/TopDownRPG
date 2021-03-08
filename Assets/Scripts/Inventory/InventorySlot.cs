@@ -6,6 +6,7 @@ public class InventorySlot : MonoBehaviour
 
     public Image icon;
     public Button removeButton;
+    public AudioClip audio;
     Item item;
     
 
@@ -39,6 +40,7 @@ public class InventorySlot : MonoBehaviour
         if(item != null)
         {
             item.Use();
+            MenuSFXManager.instance.PlaySound(audio);
         }
     }
 }

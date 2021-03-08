@@ -2199,9 +2199,10 @@ MonoBehaviour:
   focus: {fileID: 0}
   skills:
   - levelRequired: 0
-    skillObject: {fileID: 11400000, guid: 1738235866ac17a44ad89d9725496208, type: 2}
+    skillObject: {fileID: 0}
     timer: 0
     coolingDown: 1
+    checkCooling: 1
   closeEnemies: []
 --- !u!114 &1838005153909875434
 MonoBehaviour:
@@ -2254,6 +2255,13 @@ MonoBehaviour:
   damageTimer: 2
   healthBar: {fileID: 6584312717232620990}
   manaBar: {fileID: 4442362655955132089}
+  hurt: {fileID: 8300000, guid: 224a9c4cc0e9e9a41b720b0eb126b2ed, type: 3}
+  death: {fileID: 8300000, guid: 202a249713e1852489e34d8f593fe095, type: 3}
+  exp: 0
+  expRequired: 9
+  level: 1
+  levelUpParticles: {fileID: 0}
+  levelUp: {fileID: 8300000, guid: f8da0c5123cc60841a9e3d4fa19ef7fc, type: 3}
 --- !u!114 &919132149001671420
 MonoBehaviour:
   m_ObjectHideFlags: 0

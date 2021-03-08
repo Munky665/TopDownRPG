@@ -2224,7 +2224,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  lookRadius: 10
+  lookRadius: 7.5
+  sound: {fileID: 8300000, guid: 756c8bba65e4bdc4eb551d2642683758, type: 3}
 --- !u!114 &8088465872657199436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2247,6 +2248,9 @@ MonoBehaviour:
   damageTimer: 0.5
   healthBar: {fileID: 6382522028260992677}
   manaBar: {fileID: 0}
+  hurt: {fileID: 8300000, guid: 95a7861ff91b8364bb70ce45c4bb8732, type: 3}
+  death: {fileID: 8300000, guid: ddbc1c71f63dba04fb3586be229359fb, type: 3}
+  playerAttackSound: {fileID: 8300000, guid: a4af612cb22600141b93d23c8b18dd1d, type: 3}
 --- !u!135 &5341897664190328912
 SphereCollider:
   m_ObjectHideFlags: 0

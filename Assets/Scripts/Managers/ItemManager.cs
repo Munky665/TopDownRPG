@@ -27,12 +27,12 @@ public class ItemManager : MonoBehaviour
             
             if(potion < odds)
             {
-                _ = Instantiate(healthPotion, pos.position, Quaternion.identity);
+                _ = Instantiate(healthPotion, pos.position + Vector3.forward * 2, Quaternion.identity);
                 print("Spawning Health potion" + outcome.ToString());
             }
             else if(potion > odds)
             {
-                _ = Instantiate(manaPotion, pos.position, Quaternion.identity);
+                _ = Instantiate(manaPotion, pos.position + Vector3.forward *2, Quaternion.identity);
                 print("Spawning mana potion" + outcome.ToString());
             }
 

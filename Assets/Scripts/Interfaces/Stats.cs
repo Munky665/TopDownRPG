@@ -17,6 +17,9 @@ public class Stats : MonoBehaviour
     protected Animator anim;
     protected IController controller;
 
+    public AudioClip hurt;
+    public AudioClip death;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -37,23 +40,19 @@ public class Stats : MonoBehaviour
     internal void UseMana(int manaCost)
     {
         mana -= manaCost;
+        UpdateImageFill(mana, maxMana, manaBar);
     }
 
     public virtual void Damage(float d)
     {
-        d -= armor.GetValue();
-        d = Mathf.Clamp(d, 0, int.MaxValue);
-
-        health -= d;
-
-        var ratio =  health / maxHealth;
-        healthBar.fillAmount = ratio;
-
-        if (health <= 0)
+        if (!GetComponent<IController>().isDead)
         {
-            Death();
+            d -= armor.GetValue();
+            d = Mathf.Clamp(d, 0, int.MaxValue);
+
+            health -= d;
         }
-        PlayerStatManager.instance.UpdateUI();
+        UpdateImageFill(health, maxHealth, healthBar);
     }
 
     public virtual void Death()
@@ -69,9 +68,7 @@ public class Stats : MonoBehaviour
         {
             health = maxHealth;
         }
-        var ratio = health / maxHealth;
-        healthBar.fillAmount = ratio;
-        PlayerStatManager.instance.UpdateUI();
+        UpdateImageFill(health, maxHealth, healthBar);
     }
 
     internal void RegenMana(float n)
@@ -81,9 +78,13 @@ public class Stats : MonoBehaviour
         {
             mana = maxMana;
         }
-        
-        var ratio = mana / maxMana;
-        manaBar.fillAmount = ratio;
+        UpdateImageFill(mana, maxMana, manaBar);
+    }
+
+    protected void UpdateImageFill(float current, float max, Image image)
+    {
+        var ratio = current / max;
+        image.fillAmount = ratio;
         PlayerStatManager.instance.UpdateUI();
     }
 }

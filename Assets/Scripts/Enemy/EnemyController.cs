@@ -13,6 +13,7 @@ public class EnemyController : IController
     GameObject attackTarget;
     float playerMinDistance = 1.5f;
     float totumMinDistance = 2.0f;
+    public AudioClip sound;
 
     // Start is called before the first frame update
     void Start()
@@ -60,6 +61,7 @@ public class EnemyController : IController
                 if (targetStats != null)
                 {
                     combat.Attack(targetStats);
+                    EnemySFXManager.instance.PlaySound(sound);
                 }
                 agent.SetDestination(transform.position);
                 anim.SetBool("IsMoving", isMoving = false);

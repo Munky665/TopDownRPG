@@ -6,6 +6,7 @@ public class Item : ScriptableObject
     new public string name = "New Item";
     public Sprite icon = null;
     public bool isDefaultItem = false;
+    public AudioClip sound;
 
     public virtual void Use()
     {
@@ -18,5 +19,6 @@ public class Item : ScriptableObject
     public void RemoveFromInventory()
     {
         Inventory.instance.RemoveItem(this);
+
     }
 }

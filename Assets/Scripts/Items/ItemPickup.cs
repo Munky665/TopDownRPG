@@ -5,6 +5,18 @@ using UnityEngine;
 public class ItemPickup : Interactable
 {
     public Item item;
+    public List<Item> possibleTypes;
+    public AudioClip sound;
+
+     private void Start()
+    {
+        if (item == null)
+        {
+            int type = Random.Range(0, 5);
+
+            item = possibleTypes[type];
+        }
+    }
 
     public override void Interact()
     {
@@ -22,6 +34,7 @@ public class ItemPickup : Interactable
         if (pickUp)
         {
             Destroy(gameObject);
+            MenuSFXManager.instance.PlaySound(sound);
         }
     }
 }

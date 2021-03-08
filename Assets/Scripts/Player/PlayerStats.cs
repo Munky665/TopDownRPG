@@ -8,7 +8,10 @@ public class PlayerStats : Stats
     public float exp = 0;
     public float expRequired = 9;
     public int level = 1;
+    bool playSound = true;
     public GameObject levelUpParticles;
+    public AudioClip levelUp;
+    public AudioClip enemyAttackSound;
     private void Start()
     {
         EquipmentManager.instance.onEquipmentChanged += OnEquipmentChanged;
@@ -31,8 +34,35 @@ public class PlayerStats : Stats
 
     public override void Death()
     {
-        anim.SetBool("IsDead", true);
-        controller.isDead = true;
+        base.Death();
+        PlayerDamageSFX.instance.PlaySound(death);
+    }
+
+
+    public override void Damage(float d)
+    {
+        base.Damage(d);
+
+        if(playSound)
+        {
+            StartCoroutine(HurtPlayer());
+        }    
+        
+        if (health <= 0)
+        {
+            Death();
+        }
+
+    }
+
+    IEnumerator HurtPlayer()
+    {
+        playSound = false;
+        EnemySFXManager.instance.PlaySound(enemyAttackSound);
+        yield return new WaitForSeconds(0.2f);
+        PlayerDamageSFX.instance.PlaySound(hurt);
+        yield return new WaitForSeconds(1.8f);
+        playSound = true;
     }
 
     internal void AddExp(float expWorth)
@@ -43,7 +73,6 @@ public class PlayerStats : Stats
         {
             LevelUp();
         }
-        PlayerStatManager.instance.UpdateUI();
     }
 
     private void LevelUp()
@@ -65,6 +94,10 @@ public class PlayerStats : Stats
         exp = temp;
         var particles = Instantiate(levelUpParticles, this.transform);
         particles.transform.position += new Vector3(0, 1, 0);
-        PlayerStatManager.instance.UpdateUI();
+        UpdateImageFill(health, maxHealth, healthBar);
+        UpdateImageFill(mana, maxMana, manaBar);
+
+        SkillManager.instance.EnableSkill(level);
+        PlayerSFXManager.instance.PlaySound(hurt);
     }
 }

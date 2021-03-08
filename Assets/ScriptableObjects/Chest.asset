@@ -15,6 +15,9 @@ MonoBehaviour:
   name: Chest Of Protection
   icon: {fileID: 21300000, guid: 2f1eaeeaad36ee5469eff7ff158f37ba, type: 3}
   isDefaultItem: 0
-  armorModifier: 5
-  damageModifier: 1
+  sound: {fileID: 8300000, guid: 9e8bfdf716900cb4f8aed29746706c32, type: 3}
+  armorModifier: 10
+  damageModifier: 0
+  armorMod: 10
+  damageMod: 0
   type: 1

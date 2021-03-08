@@ -7,6 +7,7 @@ public class SlashSkill : SkillObject
 {
     public float animationLength = 3f;
     float animationSpawnDelay = 0.5f;
+
     public override void UseSkill(Animator anim, int skillToActivate, List<GameObject> g)
     {
         base.UseSkill(anim, skillToActivate, g);

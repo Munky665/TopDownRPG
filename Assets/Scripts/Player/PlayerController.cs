@@ -13,6 +13,7 @@ public class PlayerController : IController
     public Skill[] skills;
     public List<GameObject> closeEnemies;
     private PlayerStats pStats;
+    public bool isDashing = false;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +44,10 @@ public class PlayerController : IController
             //move player to clicked position
             if (Input.GetMouseButton(0))
             {
-                Move();
+                if (!isDashing)
+                {
+                    Move();
+                }
             }
             //move player to interactable or attack/pickup interactable
             if (Input.GetMouseButton(1))
@@ -56,6 +60,8 @@ public class PlayerController : IController
                 anim.SetBool("IsAttacking", isAttacking = false);
                 agent.SetDestination(transform.position);
                 RemoveFocus();
+                PlayerSFXManager.instance.source.Stop();
+                PlayerSFXManager.instance.source.loop = false;
             }
             CheckIfMoving();
         }
@@ -85,7 +91,7 @@ public class PlayerController : IController
     {
        foreach (Skill s in skills)
         {
-            if (s.coolingDown && s.levelRequired >= pStats.level)
+            if (s.checkCooling && s.levelRequired <= pStats.level && s.coolingDown)
             {
                 StartCoroutine(SkillCoolDown(s));
             }
@@ -93,15 +99,22 @@ public class PlayerController : IController
     }
     IEnumerator SkillCoolDown(Skill s)
     {
-        s.coolingDown = false;
+        s.checkCooling = false;
         yield return new WaitForSeconds(s.timer);
-        print(s.skillObject.name + " Ready to use");
+        try
+        {
+            s.coolingDown = false;
+            print(s.skillObject.name + " Ready to use");
+        }
+        catch
+        {
+
+        }
     }
     private void Move()
     {
         Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
         if (Physics.Raycast(myRay, out hit, 100, clickable))
         {
             if (!anim.GetBool("IsUsingSkill"))
@@ -134,7 +147,6 @@ public class PlayerController : IController
         if (agent.velocity.magnitude < 1)
         {
             anim.SetBool("IsMoving", isMoving = false);
-
         }
         else if (agent.velocity.magnitude > 1)
         {
@@ -174,7 +186,9 @@ public class PlayerController : IController
             anim.SetBool("IsMoving", isMoving = false);
             anim.SetBool("IsAttacking", isAttacking = true);
             print("Attacking activated");
+
         }
+       
     }
 
 
@@ -191,7 +205,6 @@ public class PlayerController : IController
     }
     public void ActivateSkill(int skillToActivate)
     {
-
         isAttacking = true;
         skills[skillToActivate].ActivateSkill(this, skillToActivate, pStats);
     }
@@ -203,6 +216,7 @@ public class PlayerController : IController
             closeEnemies.Add(other.gameObject);
         }
     }
+
 
     private void OnTriggerExit(Collider other)
     {

@@ -8,6 +8,9 @@ public class Equipment : Item
     public int armorModifier;
     public int damageModifier;
 
+    public int armorMod;
+    public int damageMod;
+
     public EquipmentSlot type;
 
     public override void Use()
@@ -18,6 +21,14 @@ public class Equipment : Item
         RemoveFromInventory();
         //remove from inventory
     }
+
+
+    private void OnDisable()
+    {
+        armorModifier = armorMod;
+        damageModifier = damageMod;
+    }
+
 }
 
 public enum EquipmentSlot

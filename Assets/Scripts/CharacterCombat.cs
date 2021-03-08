@@ -9,6 +9,7 @@ public class CharacterCombat : MonoBehaviour
     private float attackCooldown = 1f;
     Stats myStats;
     public float attackDelay = .5f;
+    //public AudioClip sound;
     private void Start()
     {
         myStats = GetComponent<Stats>();

@@ -41,7 +41,9 @@ public class EquipmentManager : MonoBehaviour
         if(currentEquipment[slotIndex] != null)
         {
             oldItem = currentEquipment[slotIndex];
+
             inventory.Add(oldItem);
+            
         }
 
         onEquipmentChanged?.Invoke(newItem, oldItem);
@@ -49,7 +51,14 @@ public class EquipmentManager : MonoBehaviour
         currentEquipment[slotIndex] = newItem;
         images[slotIndex].enabled = true;
         images[slotIndex].sprite = newItem.icon;
-        
+
+        if (oldItem == newItem)
+        {
+            newItem.armorModifier += oldItem.armorMod;
+            newItem.damageModifier += oldItem.damageMod;
+            inventory.RemoveItem(oldItem);
+        }
+        PlayerStatManager.instance.UpdateUI();
     }
 
     public void Unequip(int slotIndex)

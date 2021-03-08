@@ -9,7 +9,8 @@ public class Skill
     public SkillObject skillObject;
     public float timer = 0;
     public bool coolingDown = true;
-
+   
+    public bool checkCooling = true;
     public virtual void ActivateSkill(PlayerController pC, int skillToActivate, PlayerStats playerStats)
     {
 
@@ -22,10 +23,8 @@ public class Skill
                 playerStats.UseMana(skillObject.manaCost);
                 //activate skill
                 skillObject.UseSkill(pC.GetComponent<Animator>(), skillToActivate, pC.closeEnemies);
-            }
-            else
-            {
                 coolingDown = true;
+                checkCooling = true;
             }
         }
         else if(coolingDown == true && skillObject.manaCost > playerStats.mana)
@@ -39,7 +38,7 @@ public class Skill
 
     public void cooldown(PlayerStats playerStats)
     {
-        if (playerStats.level >= levelRequired)
+        if (playerStats.level >= levelRequired && coolingDown == true)
         {
             coolingDown = false;
         }

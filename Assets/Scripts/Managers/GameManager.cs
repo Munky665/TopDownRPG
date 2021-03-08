@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject totum;
     public GameObject inventory;
     public GameObject EnemyObject;
+    public GameObject itemToSpawn;
     public Text waveCountText;
     public int wave = 0;
     public int enemiesToSpawn;
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
 
         if (waveStarted == false)
         {
+            SpawnItem(wave);
             StartCoroutine(WaveDelay());
         }
         if (waveStarted)
@@ -68,9 +70,34 @@ public class GameManager : MonoBehaviour
     {
         wave++;
         waveCountText.text = ": " + wave.ToString();
-        enemiesToSpawn = wave * modifier;
-        maxEnemies = enemiesToSpawn;
+        if (wave <= 6)
+        {
+            enemiesToSpawn = wave * modifier;
+            maxEnemies = enemiesToSpawn;
+        }
+        else
+        {
+            enemiesToSpawn = maxEnemies;
+        }
         timesRun = 0;
+        
+    }
+
+    private void SpawnItem(int wave)
+    {
+        if (wave != 0 && Random.Range(1, 8) == 5)
+        {
+            float x, z;
+            if (Random.Range(1, 50) % 5 == 0)
+            {
+                RandomNorth(out x, out z);
+            }
+            else
+            {
+                RandomSouth(out x, out z);
+            }
+            var t = Instantiate(itemToSpawn, new Vector3(x, 0, z), Quaternion.identity);
+        }
     }
 
     void SpawnEnemy(GameObject e)

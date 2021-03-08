@@ -16,21 +16,33 @@ public class SkillBarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            skillButtons[0].onClick.Invoke();
+            if (skillButtons[0].enabled)
+            {
+                skillButtons[0].onClick.Invoke();
+            }
         }
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            skillButtons[1].onClick.Invoke();
+            if (skillButtons[2].enabled)
+            {
+                skillButtons[1].onClick.Invoke();
+            }
         }
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            skillButtons[2].onClick.Invoke();
+            if (skillButtons[2].enabled)
+            {
+                skillButtons[2].onClick.Invoke();
+            }
         }
-        if (Input.GetKey(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            skillButtons[3].onClick.Invoke();
+            if (skillButtons[3].enabled)
+            {
+                skillButtons[3].onClick.Invoke();
+            }
         }
 
     }

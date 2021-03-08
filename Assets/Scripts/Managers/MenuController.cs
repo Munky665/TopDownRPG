@@ -31,38 +31,50 @@ public class MenuController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
             {
-                foreach (GameObject g in MenuButtons) 
-                {
-                    g.SetActive(true);
-                }
-                pauseTitle.SetActive(true);
-                Time.timeScale = 0;
+                OpenPauseMenu();
             }
         }
         else if(paused == true && SceneManager.GetActiveScene().buildIndex == 1)
         {
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
             {
-                foreach (GameObject g in OptionMenuButtons)
-                {
-                    g.SetActive(false);
-                }
-                foreach(GameObject g in MenuButtons)
-                {
-                    g.SetActive(false);
-                }
-                pauseTitle.SetActive(false);
-                Time.timeScale = 1;
+                ClosePauseMenu();
             }
         }
-
-        if(GameManager.instance.player.GetComponent<Stats>().health <= 0)
+        if (GameManager.instance != null)
         {
-            foreach(GameObject g in GameOverMenu)
+            if (GameManager.instance.player.GetComponent<Stats>().health <= 0 || GameManager.instance.totum.GetComponent<Stats>().health <= 0)
             {
-                g.SetActive(true);
+                foreach (GameObject g in GameOverMenu)
+                {
+                    g.SetActive(true);
+                }
             }
         }
+    }
+
+    void OpenPauseMenu()
+    {
+        foreach (GameObject g in MenuButtons)
+        {
+            g.SetActive(true);
+        }
+        pauseTitle.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    void ClosePauseMenu()
+    {
+        foreach (GameObject g in OptionMenuButtons)
+        {
+            g.SetActive(false);
+        }
+        foreach (GameObject g in MenuButtons)
+        {
+            g.SetActive(false);
+        }
+        pauseTitle.SetActive(false);
+        Time.timeScale = 1;
     }
 
     public void MenuButtonClicked(int b)
